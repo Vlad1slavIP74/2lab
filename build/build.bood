@@ -1,10 +1,17 @@
 go_binary {
-  // Module (and output) name.
+
   name: "bood",
 
-  // Go package to build.
   pkg: "github.com/Vlad1slavIP74/2lab/build/cmd/bood",
 
-  // Build inputs.
-  srcs: ["**/*.go", "../go.mod"]
+  testPkg: "./...",
+
+  srcs: ["**/*.go", "../go.mod"],
+
+  //srcsExclude: ["vendor/**/*", "examples/**/*"],
+
+  // Flag to also perform dependencies vendoring.
+
+   vendorFirst: false,
+   srcsExclude: ["**/*_test.go"]
 }

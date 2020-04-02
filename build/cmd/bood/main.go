@@ -5,15 +5,12 @@ import (
 
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
-	"github.com/roman-mazur/bood/gomodule"
-
-	// TODO: Підставте свій власний пакет.
+	//"github.com/roman-mazur/bood/gomodule"
+	"github.com/Vlad1slavIP74/2lab/build/gomodule"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-
-	"github.com/Vlad1slavIP74/2lab/build/gomodule"
 )
 
 var (
