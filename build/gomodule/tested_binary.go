@@ -25,9 +25,9 @@ var (
 
 	// Ninja rule to execute go test.
 	goTest = pctx.StaticRule("gotest", blueprint.RuleParams{
-		Command:     "cd ${workDir} && go test -v ${testPkg} > ${testOutput}",
-		Description: "test ${testPkg}",
-	}, "workDir", "testOutput", "testPkg")
+		Command:     "cd ${workDir} && go test -v ${pkgTest} > ${testOutput}",
+		Description: "test ${pkgTest}",
+	}, "workDir", "testOutput", "pkgTest")
 )
 
 // goBinaryModuleType implements the simplest Go binary build without running tests for the target Go package.
@@ -115,7 +115,7 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 			Args: map[string]string{
 				"testOutput": testOutput,
 				"workDir":    ctx.ModuleDir(),
-				"testPkg":    tb.properties.TestPkg,
+				"pkgTest":    tb.properties.TestPkg,
 			},
 		})
 }
