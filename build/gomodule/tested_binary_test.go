@@ -15,8 +15,9 @@ func TestSimpleBinFactory(t *testing.T) {
 		"Blueprints": []byte(`
 			go_binary {
 			  name: "test-out",
-			  srcs: ["test-src.go"],
 			  pkg: ".",
+              testPkg: ".",
+              srcs: ["test-src.go"],
 	          vendorFirst: true
 			}
 		`),

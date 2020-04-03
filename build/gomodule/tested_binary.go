@@ -24,10 +24,10 @@ var (
 	}, "workDir", "name")
 
 	// Ninja rule to execute go test.
-	goTest = pctx.StaticRule("gotest", blueprint.RuleParams{
-		Command:     "cd ${workDir} && go test -v ${pkgTest} > ${testOutput}",
-		Description: "test ${pkgTest}",
-	}, "workDir", "testOutput", "pkgTest")
+	goTest = pctx.StaticRule("test", blueprint.RuleParams{
+		Command:     "cd ${workDir} && go test -v ${testPkg} > ${testOutput}",
+		Description: "test ${testPkg}",
+	}, "workDir", "testOutput", "testPkg")
 )
 
 // goBinaryModuleType implements the simplest Go binary build without running tests for the target Go package.
@@ -35,10 +35,10 @@ type testedBinaryModule struct {
 	blueprint.SimpleName
 
 	properties struct {
-		Name string
-		Pkg string
-		TestPkg string
-		Srcs []string
+		Name        string
+		Pkg         string
+		TestPkg     string
+		Srcs        []string
 		SrcsExclude []string
 		VendorFirst bool
 	}
@@ -102,11 +102,12 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 		Outputs:     []string{output},
 		Implicits:   inputs,
 		Args: map[string]string{
-			"output": output,
-			"workDir":    ctx.ModuleDir(),
-			"pkg":        tb.properties.Pkg,
+			"output":  output,
+			"workDir": ctx.ModuleDir(),
+			"pkg":     tb.properties.Pkg,
 		},
 	})
+	if len(tb.properties.TestPkg) > 0 {
 		ctx.Build(pctx, blueprint.BuildParams{
 			Description: fmt.Sprintf("Initiate %s tests to Go binary", name),
 			Rule:        goTest,
@@ -115,13 +116,15 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 			Args: map[string]string{
 				"testOutput": testOutput,
 				"workDir":    ctx.ModuleDir(),
-				"pkgTest":    tb.properties.TestPkg,
+				"pkg":        tb.properties.TestPkg,
 			},
 		})
+	}
 }
 
 // SimpleBinFactory is a factory for go binary module type which supports Go command packages without running tests.
 func SimpleBinFactory() (blueprint.Module, []interface{}) {
 	mType := &testedBinaryModule{}
+	fmt.Println(mType)
 	return mType, []interface{}{&mType.SimpleName.Properties, &mType.properties}
 }

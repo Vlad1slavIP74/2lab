@@ -4,11 +4,9 @@ go_binary {
 
   pkg: "github.com/Vlad1slavIP74/2lab/build/cmd/bood",
 
-  srcs: ["**/*.go", "../go.mod"],
-    srcsExclude: ["**/*_test.go"],
-  //srcsExclude: ["vendor/**/*", "examples/**/*"],
+  testPkg: "github.com/Vlad1slavIP74/2lab/...",
 
-  // Flag to also perform dependencies vendoring.
-   testPkg: "./..",
+  srcs: ["**/*.go", "../go.mod"],
+
    vendorFirst: false
 }
