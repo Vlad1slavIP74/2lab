@@ -10,9 +10,8 @@ install:
 script:
   - cd build/cmd/bood
   - go build
-  - ./bood
   - cd ../../
+  - ./cmd/bood
   - ./out/bin/bood
   - cat out/bin/test.txt
   - ./out/bin/bood
-  
