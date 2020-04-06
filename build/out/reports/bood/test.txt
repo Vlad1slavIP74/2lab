@@ -1,0 +1,1 @@
+?   	github.com/Vlad1slavIP74/2lab/build/cmd/bood	[no test files]
