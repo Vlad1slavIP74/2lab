@@ -1,0 +1,11 @@
+go_coverage{
+  name: "bood",
+
+// Go package to build.
+  pkg: "./...",
+
+//  testPkg:"./...",
+
+// Build inputs.
+  srcs: ["**/*.go", "../../go.mod"]
+}

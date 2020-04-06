@@ -35,10 +35,10 @@ type testedBinaryModule struct {
 	blueprint.SimpleName
 
 	properties struct {
-		Name string
-		Pkg string
-		TestPkg string
-		Srcs []string
+		Name        string
+		Pkg         string
+		TestPkg     string
+		Srcs        []string
 		SrcsExclude []string
 		VendorFirst bool
 	}
@@ -49,7 +49,7 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 	config := bood.ExtractConfig(ctx)
 	config.Debug.Printf("Adding build actions for go binary module '%s'", name)
 
-	output := path.Join(config.BaseOutputDir, "bin/bood", name)
+	output := path.Join(config.BaseOutputDir, "bin", name)
 	testOutput := path.Join(config.BaseOutputDir, "reports/bood", "test.txt")
 
 	var inputs []string
@@ -102,22 +102,22 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 		Outputs:     []string{output},
 		Implicits:   inputs,
 		Args: map[string]string{
-			"workDir":    ctx.ModuleDir(),
-			"output": output,
-			"pkg":        tb.properties.Pkg,
+			"workDir": ctx.ModuleDir(),
+			"output":  output,
+			"pkg":     tb.properties.Pkg,
 		},
 	})
-		ctx.Build(pctx, blueprint.BuildParams{
-			Description: fmt.Sprintf("Initiate %s tests to Go binary", name),
-			Rule:        goTest,
-			Outputs:     []string{testOutput},
-			Implicits:   testInputs,
-			Args: map[string]string{
-				"workDir":    ctx.ModuleDir(),
-				"testOutput": testOutput,
-				"testPkg":    tb.properties.TestPkg,
-			},
-		})
+	ctx.Build(pctx, blueprint.BuildParams{
+		Description: fmt.Sprintf("Initiate %s tests to Go binary", name),
+		Rule:        goTest,
+		Outputs:     []string{testOutput},
+		Implicits:   testInputs,
+		Args: map[string]string{
+			"workDir":    ctx.ModuleDir(),
+			"testOutput": testOutput,
+			"testPkg":    tb.properties.TestPkg,
+		},
+	})
 }
 
 // SimpleBinFactory is a factory for go binary module type which supports Go command packages without running tests.

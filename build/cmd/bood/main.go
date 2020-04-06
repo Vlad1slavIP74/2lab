@@ -5,9 +5,6 @@ import (
 
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
-	// "github.com/roman-mazur/bood/gomodule"
-
-	// TODO: Підставте свій власний пакет.
 	"io/ioutil"
 	"log"
 	"os"
@@ -23,7 +20,6 @@ var (
 
 func NewContext() *blueprint.Context {
 	ctx := bood.PrepareContext()
-	// TODO: Замініть імплементацію go_binary на власну.
 	ctx.RegisterModuleType("go_binary", gomodule.SimpleBinFactory)
 	return ctx
 }
