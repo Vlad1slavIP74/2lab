@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
-	"github.com/roman-mazur/bood/gomodule"
+	// "github.com/roman-mazur/bood/gomodule"
 
 	// TODO: Підставте свій власний пакет.
 	"io/ioutil"
