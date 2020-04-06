@@ -2,6 +2,7 @@ package gomodule
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
 	"strings"
@@ -16,7 +17,7 @@ func TestSimpleBinFactory(t *testing.T) {
 			go_binary {
 			  name: "test-out",
 			  pkg: ".",
-              testPkg: ".",
+              //testPkg: ".",
               srcs: ["test-src.go"],
 	          vendorFirst: true
 			}
@@ -42,6 +43,7 @@ func TestSimpleBinFactory(t *testing.T) {
 		t.Errorf("Error writing ninja file: %s", err)
 	} else {
 		text := buffer.String()
+		fmt.Println(text)
 		t.Logf("Gennerated ninja build file:\n%s", text)
 		if !strings.Contains(text, "out/bin/test-out: ") {
 			t.Errorf("Generated ninja file does not have build of the test module")

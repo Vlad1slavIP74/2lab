@@ -2,11 +2,9 @@ package main
 
 import (
 	"flag"
-
+	"github.com/Vlad1slavIP74/2lab/build/gomodule"
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
-	//"github.com/roman-mazur/bood/gomodule"
-	"github.com/Vlad1slavIP74/2lab/build/gomodule"
 	"io/ioutil"
 	"log"
 	"os"
@@ -20,8 +18,8 @@ var (
 
 func NewContext() *blueprint.Context {
 	ctx := bood.PrepareContext()
-	// TODO: Замініть імплементацію go_binary на власну.
 	ctx.RegisterModuleType("go_binary", gomodule.SimpleBinFactory)
+	//ctx.RegisterModuleType("go_test_coverage", _lab.TestCoverageFactory)
 	return ctx
 }
 

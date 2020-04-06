@@ -14,7 +14,7 @@ var (
 	// Ninja rule to execute go build.
 	goBuild = pctx.StaticRule("binaryBuild", blueprint.RuleParams{
 		Command:     "cd ${workDir} && go build -o ${output} ${pkg}",
-		Description: "build go command ${pkg}",
+		Description: "build go command${pkg}",
 	}, "workDir", "output", "pkg")
 
 	// Ninja rule to execute go mod vendor.
@@ -27,7 +27,7 @@ var (
 	goTest = pctx.StaticRule("test", blueprint.RuleParams{
 		Command:     "cd ${workDir} && go test -v ${testPkg} > ${testOutput}",
 		Description: "test ${testPkg}",
-	}, "workDir", "testOutput", "testPkg")
+	},  "testOutput","workDir", "pkg")
 )
 
 // goBinaryModuleType implements the simplest Go binary build without running tests for the target Go package.
@@ -49,7 +49,7 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 	config := bood.ExtractConfig(ctx)
 	config.Debug.Printf("Adding build actions for go binary module '%s'", name)
 
-	output := path.Join(config.BaseOutputDir, "bin/bood", name)
+	output := path.Join(config.BaseOutputDir, "bin", name)
 	testOutput := path.Join(config.BaseOutputDir, "reports/bood", "test.txt")
 
 	var inputs []string
@@ -102,8 +102,8 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 		Outputs:     []string{output},
 		Implicits:   inputs,
 		Args: map[string]string{
-			"output":  output,
 			"workDir": ctx.ModuleDir(),
+			"output":  output,
 			"pkg":     tb.properties.Pkg,
 		},
 	})
@@ -125,6 +125,5 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 // SimpleBinFactory is a factory for go binary module type which supports Go command packages without running tests.
 func SimpleBinFactory() (blueprint.Module, []interface{}) {
 	mType := &testedBinaryModule{}
-	fmt.Println(mType)
 	return mType, []interface{}{&mType.SimpleName.Properties, &mType.properties}
 }
