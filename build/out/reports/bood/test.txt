@@ -1,1 +1,1 @@
-?   	github.com/Vlad1slavIP74/2lab/build/cmd/bood	[no test files]
+?   	github.com/Vlad1slavIP74/2lab/build/cmd/newbood	[no test files]

@@ -1,0 +1,13 @@
+go_binary {
+  name: "newbood",
+  pkg: "github.com/Vlad1slavIP74/2lab/build/cmd/newbood",
+  testPkg:"github.com/Vlad1slavIP74/2lab/build/cmd/newbood",
+  outTestFile: "test.txt",
+  srcs: ["**/*.go", "../go.mod"]
+}
+
+go_coverage {
+    name: "testcoverage",
+    srcs:["testcoverage/**/*.go", "../go.mod"],
+    outTestFile: "testcoverage.out"
+}

@@ -17,12 +17,21 @@ func TestSimpleBinFactory(t *testing.T) {
 			go_binary {
 			  name: "test-out",
 			  pkg: ".",
+		outTestFile:"test.txt",
         testPkg: ".",
         srcs: ["test-src.go"],
 	      vendorFirst: true
 			}
+			go_coverage {
+			  name: "package-out",
+			  pkg: ".",
+binary:["test-out"],
+			  srcs: [ "main_test.go", "main.go",],
+			}
 		`),
-		"test-src.go": nil,
+		"test-src.go":  nil,
+		"main.go":      nil,
+		"main_test.go": nil,
 	})
 
 	ctx.RegisterModuleType("go_binary", SimpleBinFactory)

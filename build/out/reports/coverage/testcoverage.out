@@ -1,0 +1,8 @@
+mode: set
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:35.103,37.2 1 1
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:39.84,51.42 7 1
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:75.2,86.4 2 1
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:51.42,53.84 2 1
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:53.84,56.4 1 1
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:56.9,59.4 2 0
+github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go:91.62,95.2 3 1
