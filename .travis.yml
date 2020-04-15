@@ -8,7 +8,9 @@ install:
 - sudo unzip ninja-linux.zip -d /usr/local/bin/
 
 before_script: cd ./build
-
+deploy:
+  github-token: $GITHUB_TOKEN
+  keep-history: true
 script:
 - cd ./cmd/bood && go build && cd ../../
 - ./cmd/bood/bood
