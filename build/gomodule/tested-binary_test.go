@@ -17,6 +17,7 @@ func TestSimpleBinFactory(t *testing.T) {
 			go_binary {
 			  name: "test-out",
 			  pkg: ".",
+		outTestFile:"test.txt",
         testPkg: ".",
         srcs: ["test-src.go"],
 	      vendorFirst: true
