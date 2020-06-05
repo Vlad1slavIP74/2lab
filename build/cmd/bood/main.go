@@ -2,14 +2,12 @@ package main
 
 import (
 	"flag"
-
 	"github.com/google/blueprint"
 	"github.com/roman-mazur/bood"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
-
 	"github.com/Vlad1slavIP74/2lab/build/gomodule"
 )
 

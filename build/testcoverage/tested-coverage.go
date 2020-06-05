@@ -23,14 +23,18 @@ type testedCoverageModule struct {
 	properties struct {
 		Name string
 		Pkg  string
-		// TestPkg string
+		Deps []string
 		Srcs        []string
 		SrcsExclude []string
-		// Deps []string
+		Binary []string
 	}
 }
 
-func (tb *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContext) {
+func (tcm *testedCoverageModule) DynamicDependencies(blueprint.DynamicDependerModuleContext) []string {
+	return tcm.properties.Deps
+}
+
+func (tcm *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContext) {
 	name := ctx.ModuleName()
 	config := bood.ExtractConfig(ctx)
 
@@ -39,28 +43,16 @@ func (tb *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContext
 	// fileName:= path.Dir(pathToCoverageReports)
 	var inputs []string
 
-	for _, src := range tb.properties.Srcs {
-		if matches, err := ctx.GlobWithDeps(src, tb.properties.SrcsExclude); err == nil {
+	for _, src := range tcm.properties.Srcs {
+		if matches, err := ctx.GlobWithDeps(src, tcm.properties.SrcsExclude); err == nil {
 			inputs = append(inputs, matches...)
 		} else {
 			ctx.PropertyErrorf("srcs", "Cannot resolve files that match pattern %s", src)
 			return
 		}
 	}
-	//print all dependencies to make sure they exist
-	// fmt.Printf("dependencies:\n")
-	//
-	//   ctx.VisitDirectDeps(func(d blueprint.Module) {
-	//     fmt.Printf("\t%s ", d.Name())
-	//   })
+
 	fmt.Println(path.Dir(pathToCoverageReports))
-	//
-	// ctx.Build(pctx, blueprint.BuildParams{
-	// 	Rule:        goBuild,
-	// 	Args: map[string]string{
-	// 		"fileName": fileName,
-	// 	},
-	// })
 
 	ctx.Build(pctx, blueprint.BuildParams{
 		Description: fmt.Sprintf("Test coverage for %s", name),

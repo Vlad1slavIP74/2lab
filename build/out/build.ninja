@@ -27,7 +27,7 @@ rule g.gomodule.gotest
 # Defined: build.bood:1:1
 
 build out/bin/bood: g.gomodule.binaryBuild | cmd/bood/main.go $
-        cmd/bood/testcoverage/bood/main.go gomodule/tested-binary.go $
+        cmd/bood/testcoverage/main.go gomodule/tested-binary.go $
         gomodule/tested-binary_test.go testcoverage/tested-coverage.go $
         testcoverage/tested-coverage_test.go ../go.mod
     description = Build bood as Go binary
@@ -37,7 +37,7 @@ build out/bin/bood: g.gomodule.binaryBuild | cmd/bood/main.go $
 default out/bin/bood
 
 build out/reports/bood/test.txt: g.gomodule.gotest | cmd/bood/main.go $
-        cmd/bood/testcoverage/bood/main.go gomodule/tested-binary.go $
+        cmd/bood/testcoverage/main.go gomodule/tested-binary.go $
         gomodule/tested-binary_test.go testcoverage/tested-coverage.go $
         testcoverage/tested-coverage_test.go ../go.mod
     description = Initiate bood tests to Go binary
@@ -45,4 +45,27 @@ build out/reports/bood/test.txt: g.gomodule.gotest | cmd/bood/main.go $
     testPkg = github.com/Vlad1slavIP74/2lab/build/cmd/bood
     workDir = .
 default out/reports/bood/test.txt
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Module:  testcoverage
+# Variant:
+# Type:    go_binary
+# Factory: github.com/Vlad1slavIP74/2lab/build/gomodule.SimpleBinFactory
+# Defined: build.bood:14:1
+
+build out/bin/testcoverage: g.gomodule.binaryBuild | $
+        testcoverage/tested-coverage.go testcoverage/tested-coverage_test.go
+    description = Build testcoverage as Go binary
+    output = out/bin/testcoverage
+    pkg = 
+    workDir = .
+default out/bin/testcoverage
+
+build out/reports/bood: g.gomodule.gotest | testcoverage/tested-coverage.go $
+        testcoverage/tested-coverage_test.go
+    description = Initiate testcoverage tests to Go binary
+    testOutput = out/reports/bood
+    testPkg = 
+    workDir = .
+default out/reports/bood
 

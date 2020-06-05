@@ -11,3 +11,11 @@ go_binary {
   // Build inputs.
   srcs: ["**/*.go", "../go.mod"]
 }
+
+go_coverage {
+    name: "testcoverage",
+    // deps: ["bood"],
+      // Go package to build.
+    pkg: "github.com/Vlad1slavIP74/2lab/build/cmd",
+    srcs:["testcoverage/**/*.go", "../go.mod"]
+}
