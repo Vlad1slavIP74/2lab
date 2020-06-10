@@ -54,7 +54,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go (88.9%)</option>
+				<option value="file0">github.com/Vlad1slavIP74/2lab/build/testcoverage/tested-coverage.go (86.7%)</option>
 				
 				</select>
 			</div>
@@ -79,13 +79,13 @@ import (
 )
 
 var (
-        pctx = blueprint.NewPackageContext("github.com/Vlad1slavIP74/2lab/build/testcoverage")
+        pctx    = blueprint.NewPackageContext("github.com/Vlad1slavIP74/2lab/build/testcoverage")
         goBuild = pctx.StaticRule("prebuild", blueprint.RuleParams{
                 Command: "mkdir -p $fileName",
         }, "fileName")
         goTestCoverage = pctx.StaticRule("testCoverage", blueprint.RuleParams{
                 Command: "cd $workDir &amp;&amp; go test -coverprofile $outputCoverage &amp;&amp; go tool cover -html=$outputCoverage -o $outputHtml",
-        }, "workDir","outputCoverage", "outputHtml")
+        }, "workDir", "outputCoverage", "outputHtml")
 )
 
 type testedCoverageModule struct {
@@ -101,7 +101,6 @@ type testedCoverageModule struct {
         }
 }
 
-
 func (tcm *testedCoverageModule) DynamicDependencies(blueprint.DynamicDependerModuleContext) []string <span class="cov8" title="1">{
         return tcm.properties.Binary
 }</span>
@@ -110,14 +109,11 @@ func (tcm *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContex
         name := ctx.ModuleName()
         config := bood.ExtractConfig(ctx)
 
-        fmt.Println("************************")
-        pathToCoverageReports := path.Join("..",config.BaseOutputDir, "reports/coverage", fmt.Sprintf("%s.out", name))
-        pathToCoverageHtml := path.Join("..",config.BaseOutputDir, "reports/coverage", fmt.Sprintf("%s.html", name))
 
-        //output := path.Join(config.BaseOutputDir, "bin", name)
-        // fileName:= path.Dir(pathToCoverageReports)
+        pathToCoverageReports := path.Join("..", config.BaseOutputDir, "reports/coverage", fmt.Sprintf("%s.out", name))
+        pathToCoverageHtml := path.Join("..", config.BaseOutputDir, "reports/coverage", fmt.Sprintf("%s.html", name))
+
         var inputs []string
-        //fmt.Println("pkg ", tcm.properties.)
         for _, src := range tcm.properties.Srcs </span><span class="cov8" title="1">{
                 fmt.Println(src)
                 if matches, err := ctx.GlobWithDeps(src, tcm.properties.SrcsExclude); err == nil </span><span class="cov8" title="1">{
@@ -142,14 +138,13 @@ func (tcm *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContex
         //
         //output := path.Join(config.BaseOutputDir, "config", name)
 
-        <span class="cov8" title="1">fmt.Println(pathToCoverageReports,"inputs")
-        ctx.Build(pctx, blueprint.BuildParams{
+        <span class="cov8" title="1">ctx.Build(pctx, blueprint.BuildParams{
                 Description: fmt.Sprintf("Test coverage for %s", name),
                 Rule:        goTestCoverage,
                 Outputs:     []string{config.BaseOutputDir},
                 Implicits:   inputs,
                 Args: map[string]string{
-                        "workDir": "testcoverage",
+                        "workDir":        "testcoverage",
                         "outputCoverage": pathToCoverageReports,
                         "outputHtml":     pathToCoverageHtml,
                 },
@@ -160,7 +155,6 @@ func (tcm *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContex
 
 func TestCoverageFactory() (blueprint.Module, []interface{}) <span class="cov8" title="1">{
         mType := &amp;testedCoverageModule{}
-        fmt.Println("999999999999999999999")
         return mType, []interface{}{&amp;mType.SimpleName.Properties, &amp;mType.properties}
 }</span>
 </pre>

@@ -18,7 +18,7 @@ rule g.gomodule.binaryBuild
     description = build go command ${pkg}
 
 rule g.gomodule.gotest
-    command = cd ${workDir} && go test -v ${testPkg} > ${testOutput}
+    command = cd ${workDir} && go test -v -benchtime=100 ${testPkg} > ${testOutput}
     description = test ${testPkg}
 
 rule g.testcoverage.testCoverage
