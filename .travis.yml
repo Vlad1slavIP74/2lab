@@ -6,16 +6,15 @@ install:
 - wget https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip
 - sudo apt install unzip
 - sudo unzip ninja-linux.zip -d /usr/local/bin/
-
+- go install ./build/cmd/newbood/
 before_script: cd ./build
 
 script:
-- cd ./cmd/bood && go build && cd ../../
-- ./cmd/bood/bood
+- cd ./cmd/newbood && go build && cd ../../
+- ./cmd/newbood/newbood
 - cd ./gomodule && go build && cd ../
-- ./out/bin/bood
-- cat ./out/reports/bood/test.txt
-- ./out/bin/bood
-- cd ./cmd/bood/testcoverage/bood && go build && cd ../../../../testcoverage
-- ../cmd/bood/testcoverage/bood/bood
-- cat ./out/reports/bood.html
+- cd ./testcoverage && go build && cd ../
+- newbood
+- cat ./out/reports/coverage/testcoverage.out
+- console.log(config.BaseOutputDir)
+- cat ./out/reports/coverage/testcoverage.html
