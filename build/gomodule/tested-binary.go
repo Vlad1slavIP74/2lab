@@ -25,7 +25,7 @@ var (
 
 	// Ninja rule to execute go test.
 	goTest = pctx.StaticRule("gotest", blueprint.RuleParams{
-		Command:     "cd ${workDir} && go test -v ${testPkg} > ${testOutput}",
+		Command:     "cd ${workDir} && go test -v -benchtime=100 ${testPkg} > ${testOutput}",
 		Description: "test ${testPkg}",
 	}, "workDir", "testOutput", "testPkg")
 )
