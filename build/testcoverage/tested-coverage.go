@@ -78,9 +78,12 @@ func (tcm *testedCoverageModule) GenerateBuildActions(ctx blueprint.ModuleContex
 			"outputHtml":     pathToCoverageHtml,
 		},
 	})
+	//fmt.Println(config.BaseOutputDir)
+	//fmt.Println("£££££££££££££££")
 }
 
 func TestCoverageFactory() (blueprint.Module, []interface{}) {
 	mType := &testedCoverageModule{}
+	fmt.Println("999999999999999999999")
 	return mType, []interface{}{&mType.SimpleName.Properties, &mType.properties}
 }
