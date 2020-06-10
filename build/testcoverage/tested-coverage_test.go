@@ -14,7 +14,7 @@ var fileSystemDescriptions = []map[string][]byte{
 			go_coverage {
 			  name: "package-out",
 			  pkg: ".",
-			  srcs: [ "main_test.go", "main.go",],
+			  srcs: [ "main_test.go", "main.go"]
 			}
 		`),
 		"main.go":      nil,
@@ -27,8 +27,8 @@ var expectedOutput = [][]string{
 		"out:",
 		"g.testcoverage.testCoverage | main_test.go main.go",
 		"description = Test coverage for package-out",
-		"outputCoverage = out/reports/package-out.out",
-		"outputHtml = out/reports/package-out.html",
+		"outputCoverage = ../out/reports/coverage/package-out.out",
+		"outputHtml = ../out/reports/coverage/package-out.html",
 	},
 }
 

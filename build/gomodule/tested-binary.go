@@ -41,8 +41,13 @@ type testedBinaryModule struct {
 		Srcs        []string
 		SrcsExclude []string
 		VendorFirst bool
+		Deps        []string
 		OutTestFile string
 	}
+}
+
+func (f *testedBinaryModule) DynamicDependencies(blueprint.DynamicDependerModuleContext) []string {
+	return f.properties.Deps
 }
 
 func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) {
@@ -51,7 +56,7 @@ func (tb *testedBinaryModule) GenerateBuildActions(ctx blueprint.ModuleContext) 
 	config.Debug.Printf("Adding build actions for go binary module '%s'", name)
 
 	output := path.Join(config.BaseOutputDir, "bin", name)
-	testOutput := path.Join(config.BaseOutputDir, "reports/bood", tb.properties.OutTestFile)
+	testOutput := path.Join(config.BaseOutputDir, "reports/newbood", tb.properties.OutTestFile)
 
 	var inputs []string
 	inputErrors := false

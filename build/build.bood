@@ -1,21 +1,13 @@
 go_binary {
-  // Module (and output) name.
-  name: "bood",
-
-  // Go package to build.
-  pkg: "github.com/Vlad1slavIP74/2lab/build/cmd/bood",
-
-  testPkg:"github.com/Vlad1slavIP74/2lab/build/cmd/bood",
+  name: "newbood",
+  pkg: "github.com/Vlad1slavIP74/2lab/build/cmd/newbood",
+  testPkg:"github.com/Vlad1slavIP74/2lab/build/cmd/newbood",
   outTestFile: "test.txt",
-
-  // Build inputs.
   srcs: ["**/*.go", "../go.mod"]
 }
 
 go_coverage {
     name: "testcoverage",
-    // deps: ["bood"],
-      // Go package to build.
-    pkg: "github.com/Vlad1slavIP74/2lab/build/cmd",
-    srcs:["testcoverage/**/*.go", "../go.mod"]
+    pkg: ".",
+    srcs:["testcoverage/*.go"]
 }
